@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,39 +23,45 @@ export function ProductCard({ product, onAddToCart, onQuickView }: ProductCardPr
       className="group relative"
     >
       <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 ease-in-out hover:shadow-glow hover:-translate-y-2 active:scale-95">
-        <CardHeader className="p-0 border-b">
-          <div className="overflow-hidden aspect-[4/3] relative">
-            <img
-              src={product.images?.[0] ?? ''}
-              alt={product.name}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <motion.div variants={{ hover: { scale: 1.05 } }} whileHover="hover">
-                <Button variant="secondary" onClick={() => onQuickView(product)} aria-label={`Open quick view for ${product.name}`}>
-                  Quick View
-                </Button>
-              </motion.div>
+        <Link to={`/products/${product.slug}`} className="flex flex-col flex-grow" aria-label={`View details for ${product.name}`}>
+          <CardHeader className="p-0 border-b">
+            <div className="overflow-hidden aspect-[4/3] relative">
+              <img
+                src={product.images?.[0] ?? ''}
+                alt={product.name}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <motion.div variants={{ hover: { scale: 1.05 } }} whileHover="hover">
+                  <Button
+                    variant="secondary"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); onQuickView(product); }}
+                    aria-label={`Open quick view for ${product.name}`}
+                  >
+                    Quick View
+                  </Button>
+                </motion.div>
+              </div>
             </div>
-          </div>
-        </CardHeader>
-        <CardContent className="p-4 flex-grow">
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg font-semibold leading-tight">{product.name}</CardTitle>
-            <div className="text-lg font-bold text-primary whitespace-nowrap">{formatPrice(product.price)}</div>
-          </div>
-          <div className="flex flex-wrap gap-1 mt-2">
-            <Badge variant="outline">{product.category}</Badge>
-            {product.tags.slice(0, 1).map(tag => (
-              <Badge key={tag} variant="secondary">{tag}</Badge>
-            ))}
-          </div>
-        </CardContent>
+          </CardHeader>
+          <CardContent className="p-4 flex-grow">
+            <div className="flex items-start justify-between gap-2">
+              <CardTitle className="text-lg font-semibold leading-tight">{product.name}</CardTitle>
+              <div className="text-lg font-bold text-primary whitespace-nowrap">{formatPrice(product.price)}</div>
+            </div>
+            <div className="flex flex-wrap gap-1 mt-2">
+              <Badge variant="outline">{product.category}</Badge>
+              {product.tags.slice(0, 1).map(tag => (
+                <Badge key={tag} variant="secondary">{tag}</Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Link>
         <CardFooter className="p-4 pt-0">
           <Button
             className="w-full"
-            onClick={() => onAddToCart(product, product.variants[0].sku)}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); onAddToCart(product, product.variants[0].sku); }}
           >
             <Plus className="mr-2 h-4 w-4" /> Add to Cart
           </Button>

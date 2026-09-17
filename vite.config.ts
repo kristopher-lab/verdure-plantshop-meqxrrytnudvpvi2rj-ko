@@ -92,7 +92,11 @@ export default ({ mode }: { mode: string }) => {
     plugins: [react(), cloudflare(), watchDependenciesPlugin()],
     build: {
       minify: true,
-      sourcemap: "inline", // Use inline source maps for better error reporting
+      // "inline" embeds sourcemaps as base64 data URLs, which `wrangler deploy`
+      // cannot parse for the Worker bundle ("expected file path but found data
+      // URL"). Emit them as separate .map files instead so deploys succeed
+      // while error reporting/debugging still works.
+      sourcemap: true,
       rollupOptions: {
         output: {
           sourcemapExcludeSources: false, // Include original source in source maps

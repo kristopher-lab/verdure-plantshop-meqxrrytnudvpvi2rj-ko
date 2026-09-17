@@ -17,6 +17,12 @@ import LoginPage from '@/pages/LoginPage';
 import CartPage from '@/pages/CartPage';
 import CheckoutPage from '@/pages/CheckoutPage';
 import { DemoPage } from '@/pages/DemoPage';
+import AboutPage from '@/pages/AboutPage';
+import ContactPage from '@/pages/ContactPage';
+import FaqPage from '@/pages/FaqPage';
+import ShippingReturnsPage from '@/pages/ShippingReturnsPage';
+import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
+import TermsPage from '@/pages/TermsPage';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -54,6 +60,36 @@ const router = createBrowserRouter([
   {
     path: "/demo",
     element: <DemoPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/about",
+    element: <AboutPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/contact",
+    element: <ContactPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/faq",
+    element: <FaqPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/shipping-returns",
+    element: <ShippingReturnsPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicyPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/terms",
+    element: <TermsPage />,
     errorElement: <RouteErrorBoundary />,
   },
 ]);

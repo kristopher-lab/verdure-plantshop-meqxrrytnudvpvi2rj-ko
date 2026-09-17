@@ -56,6 +56,14 @@ export interface User {
   name?: string;
   createdAt: number;
 }
+export type ContactMessage = {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  createdAt: number;
+};
 export interface AuthResponse {
   success: boolean;
   user?: User;

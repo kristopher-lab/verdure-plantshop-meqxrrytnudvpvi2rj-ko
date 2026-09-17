@@ -11,6 +11,7 @@ import { CartDrawer } from '@/components/CartDrawer';
 import { useCartActions, useCartUi } from '@/hooks/use-cart';
 import { OrderConfirmation } from '@/components/OrderConfirmation';
 import { SearchParamsWrapper } from '@/components/SearchParamsWrapper';
+import { SiteFooter } from '@/components/SiteFooter';
 export function HomePage() {
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const { addToCart, isAuthenticated, logout } = useCartActions();
@@ -29,6 +30,11 @@ export function HomePage() {
             <Leaf className="h-8 w-8 text-primary" />
             <h1 className="text-2xl font-bold font-display text-primary">Verdure</h1>
           </Link>
+          <nav className="hidden md:flex items-center gap-6" aria-label="Primary">
+            <Link to="/about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">About</Link>
+            <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Contact</Link>
+            <Link to="/faq" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">FAQ</Link>
+          </nav>
           <div className="flex items-center gap-2">
             {isAuthenticated ? (
               <Button variant="ghost" onClick={logout}><LogOut className="h-4 w-4 mr-2" /> Logout</Button>
@@ -70,11 +76,7 @@ export function HomePage() {
           </div>
         </div>
       </main>
-      <footer className="border-t">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Verdure. Built with ❤️ at Cloudflare.</p>
-        </div>
-      </footer>
+      <SiteFooter />
       <ProductQuickView
         product={quickViewProduct}
         isOpen={!!quickViewProduct}

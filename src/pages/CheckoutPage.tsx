@@ -13,6 +13,7 @@ import type { CartItem } from '@shared/types';
 import { GuestCheckoutModal } from '@/components/GuestCheckoutModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { OrderConfirmation } from '@/components/OrderConfirmation';
+import { SiteFooter } from '@/components/SiteFooter';
 const formatPrice = (price: number) => `${(price / 100).toFixed(2)}`;
 function CartItemView({ item }: { item: CartItem }) {
   const { updateQuantity, removeFromCart } = useCartActions();
@@ -156,6 +157,7 @@ export default function CheckoutPage() {
           </div>
         </div>
       </main>
+      <SiteFooter />
       <GuestCheckoutModal isOpen={showGuestModal} onOpenChange={setShowGuestModal} onSubmit={handleGuestCheckout} />
       <OrderConfirmation orderId={orderId} isOpen={!!orderId} onOpenChange={() => setOrderId(null)} />
       <Toaster richColors closeButton />

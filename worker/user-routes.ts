@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import type { Env } from './core-utils';
-import { ProductEntity, CartEntity, OrderEntity, UserEntity } from "./entities";
+import { ProductEntity, CartEntity, OrderEntity, UserEntity, ContactEntity } from "./entities";
 import { ok, bad, notFound, isStr } from './core-utils';
-import type { CartItem, Product, Order, Cart } from "@shared/types";
+import type { CartItem, Product, Order, Cart, ContactMessage } from "@shared/types";
 export function userRoutes(app: Hono<{ Bindings: Env }>) {
   // Ensure products are seeded on first request
   app.use('/api/products/*', async (c, next) => {
@@ -181,5 +181,22 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
     await OrderEntity.ensureSeed(c.env);
     const { items } = await OrderEntity.list(c.env);
     return ok(c, items);
+  });
+  // CONTACT US
+  app.post('/api/contact', async (c) => {
+    const { name, email, subject, message } = (await c.req.json()) as Partial<ContactMessage>;
+    if (!isStr(name) || !isStr(email) || !isStr(message)) {
+      return bad(c, 'Name, email, and message are required');
+    }
+    const record: ContactMessage = {
+      id: `contact_${crypto.randomUUID().slice(0, 8)}`,
+      name,
+      email,
+      subject: isStr(subject) ? subject : 'General Inquiry',
+      message,
+      createdAt: Date.now(),
+    };
+    await ContactEntity.create(c.env, record);
+    return ok(c, { id: record.id });
   });
 }

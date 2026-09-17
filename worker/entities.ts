@@ -1,5 +1,5 @@
 import { IndexedEntity } from "./core-utils";
-import type { Product, Cart, CartItem, Order, User } from "@shared/types";
+import type { Product, Cart, CartItem, Order, User, ContactMessage } from "@shared/types";
 import { MOCK_PRODUCTS } from "@shared/mock-data";
 // PRODUCT ENTITY
 export class ProductEntity extends IndexedEntity<Product> {
@@ -134,4 +134,17 @@ export class UserEntity extends IndexedEntity<User> {
   static seedData = [
     { id: "user_1", email: "test@example.com", name: "Test User", createdAt: Date.now() }
   ];
+}
+// CONTACT MESSAGE ENTITY
+export class ContactEntity extends IndexedEntity<ContactMessage> {
+  static readonly entityName = "contact_message";
+  static readonly indexName = "contact_messages";
+  static readonly initialState: ContactMessage = {
+    id: "",
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    createdAt: 0,
+  };
 }

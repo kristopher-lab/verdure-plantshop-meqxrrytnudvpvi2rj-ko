@@ -14,6 +14,7 @@ import { useProduct } from '@/hooks/use-products';
 import { useCartMutations, useCartUi, useCartUiActions } from '@/hooks/use-cart';
 import { RelatedProductsCarousel } from '@/components/RelatedProductsCarousel';
 import { OrderConfirmation } from '@/components/OrderConfirmation';
+import { SiteFooter } from '@/components/SiteFooter';
 const formatPrice = (price: number) => `${(price / 100).toFixed(2)}`;
 function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -115,11 +116,7 @@ function ProductDetail() {
           </div>
         </div>
       </main>
-      <footer className="border-t">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Verdure. Built with ❤️ at Cloudflare.</p>
-        </div>
-      </footer>
+      <SiteFooter />
       <OrderConfirmation orderId={orderId} isOpen={!!orderId} onOpenChange={() => setOrderId(null)} />
       <Toaster richColors closeButton />
     </div>

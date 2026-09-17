@@ -42,9 +42,8 @@ export function ProductQuickView({ product, isOpen, onOpenChange, onAddToCart }:
   const isOutOfStock = !selectedVariant || selectedVariant.inventory <= 0;
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent 
+      <DialogContent
         className="sm:max-w-[800px] p-0"
-        asChild
         onKeyDown={(e) => { if (e.key === 'Escape') onOpenChange(false) }}
       >
         <motion.div

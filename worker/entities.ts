@@ -3,8 +3,12 @@ import type { Product, Cart, CartItem, Order, User } from "@shared/types";
 import { MOCK_PRODUCTS } from "@shared/mock-data";
 // PRODUCT ENTITY
 export class ProductEntity extends IndexedEntity<Product> {
-  static readonly entityName = "product";
-  static readonly indexName = "products";
+  // Bumped from "product"/"products" to force a fresh seed under a new
+  // storage namespace: `ensureSeed` only seeds when its index is empty, so
+  // once real traffic seeded the old (broken-image) MOCK_PRODUCTS, updating
+  // shared/mock-data.ts alone never reached already-provisioned storage.
+  static readonly entityName = "product_v2";
+  static readonly indexName = "products_v2";
   static readonly initialState: Product = {
     id: "",
     name: "",
